@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { fetchRedditData } from '../actions/index'
 import loader from '../spinner-earth.svg'
+import sortBy from 'lodash/sortBy'
+
 
 const Loader = () => <div style={{ textAlign: 'center', margin: 100 }}>
 	<img src={loader} alt="loader"/>
@@ -20,10 +22,12 @@ class ItemsList extends Component {
 		return items === null
 			? <Loader/>
 			: <div className="items-list">
-				{items
-					.filter(({data}) => data.num_comments >= filterValue)
-					.sort((a, b) => a.data.num_comments < b.data.num_comments)
-					.map(({data}) => <Item key={data.id} {...data} />)}
+				{
+					sortBy(
+						items.filter(({data}) => data.num_comments >= filterValue),
+						(item) => item.data.num_comments
+					).map(({data}) => <Item key={data.id} {...data} />)
+				}
 			</div>
     }
 }

@@ -9,7 +9,7 @@ class CommentsFilter extends Component {
 	render() {
 		const { isLoading, filterValue, changeFilterValue, maxFilterValue } = this.props
 
-		return <div>
+		return maxFilterValue === 2 ? null : <div>
 			<Slider onChange={(e, val) => changeFilterValue(val)} disabled={isLoading} defaultValue={filterValue} min={1} step={1} max={maxFilterValue} />
 			<h3>Current filter: {filterValue}</h3>
 		</div>
